@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=PoOT DLC Fix
+Name[de]=PoOT DLC-Fix
+Comment=Version-locked Steam Deck DLC workaround with backup and restore
+Comment[de]=Steam-Deck-DLC-Fix mit Versionsprüfung, Sicherung und Wiederherstellung
+Icon=applications-games
+Terminal=false
+Categories=Game;Utility;
+Exec=python3 -c "import pathlib,subprocess,sys,urllib.parse;p=sys.argv[1];p=urllib.parse.unquote(urllib.parse.urlparse(p).path) if p.startswith('file:') else p;sys.exit(subprocess.call(['bash',str(pathlib.Path(p).parent/'PoOT_DLC_Fix_GUI.sh')]))" %k
