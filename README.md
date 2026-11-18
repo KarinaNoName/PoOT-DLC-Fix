@@ -2,6 +2,23 @@
 
 **Unofficial workaround** for *STORY OF SEASONS: Pioneers of Olive Town* (Steam AppID 1392960): On Proton, the base game can run while some purchased, installed DLCs are not detected. On **one precisely verified game build**, this fix changes four bytes in `GameAssembly.dll` so the DLC file-hash verification does not block access. **Steam DLC ownership checks are not changed.** The underlying Proton cause has not been conclusively proven.
 
+## Update (18 November 2026): Official Proton fix — check before using this workaround
+
+Valve changed Proton's file-path conversion for `ISteamApps::GetFileDetails()` on **22 October 2026** ([official upstream commit](https://github.com/ValveSoftware/Proton/commit/a0c7261f244ebb961259ecc8e25b7d89f039eb19)). A user [reported on 24 October 2026](https://github.com/ValveSoftware/Proton/issues/7130#issuecomment-6379230807) that this change fixed the missing-DLC problem under **Proton Experimental's `bleeding-edge` beta**.
+
+**Try a Proton build with the official fix before installing our experimental DLL workaround.** Our four-byte patch remains a build-specific legacy workaround, not the upstream Proton repair.
+
+| Proton configuration | DLC recognition: what is actually confirmed |
+| --- | --- |
+| **Proton Experimental → Betas → `bleeding-edge`** (24 October 2026 report) | **Reported fixed without our patch** by another player. This is a rolling beta branch; no exact numbered build was provided. |
+| **GE-Proton10-21 + our four-byte patch**, exact verified `GameAssembly.dll` build | **Confirmed working in our Steam Deck testing**: DLC regions, NPCs, clothing and save/load. See [TEST_RESULTS.md](TEST_RESULTS.md). |
+| **GE-Proton10-21 without our patch**, same tested setup | **Confirmed not working in our original test**: the purchased DLCs did not appear in the game's DLC menu. |
+| Default Proton Experimental, numbered stable Proton releases and other GE-Proton versions | **Not independently verified here** for DLC recognition without the patch. In particular, [Proton 11.0-2e](https://github.com/ValveSoftware/Proton/releases/tag/proton-11.0-2e) was released on 9 October 2026, before Valve's 22 October change; do not assume it includes this fix. |
+
+**Important:** `bleeding-edge` is an automatically updated, potentially unstable beta, not a fixed numbered Proton release. See [Valve's version guidance](https://github.com/ValveSoftware/Proton/wiki/Proton-Versions#proton-bleeding-edge) and back up your saves before testing. We have not established exactly which stable or GE-Proton versions include the upstream fix.
+
+If your legitimately owned DLCs already appear and work in-game with a Proton build containing Valve's fix, **do not install this patch**. If you previously installed our workaround, restore the original `GameAssembly.dll` from its verified backup before testing the official Proton fix. Do not apply our patch to unknown game builds. The older callback-1023 hypothesis was not conclusively established; the upstream commit specifically addresses file-path conversion for `GetFileDetails()`.
+
 ## Important: GE-Proton is a separate prerequisite
 
 **GE-Proton10-21 is NOT included in this download.** **ProtonUp-Qt** is **not bundled** either. Our DLC fix does not install, update, or configure Proton or ProtonUp-Qt. Both are separate third-party compatibility tools or projects.
